@@ -1,42 +1,37 @@
 package coda.goatskitchen.crafting;
 
-import coda.goatskitchen.GoatsKitchen;
 import coda.goatskitchen.init.GKRecipes;
-import com.google.gson.JsonArray;
+import coda.goatskitchen.tileentities.BlenderTileEntity;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class BlendingRecipe implements IRecipe {
+public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
     private final ResourceLocation id;
-    private final String group;
     private final ItemStack recipeOutput;
     private final NonNullList<Ingredient> recipeItems;
-    final boolean isSimple;
+    private final boolean isSimple;
+    private final Ingredient bottle;
 
-    public BlendingRecipe(ResourceLocation idIn, String groupIn, ItemStack recipeOutputIn, NonNullList<Ingredient> recipeItemsIn) {
+    public BlendingRecipe(ResourceLocation idIn, ItemStack recipeOutput, NonNullList<Ingredient> recipeItems, Ingredient bottle) {
         this.id = idIn;
-        this.group = groupIn;
-        this.recipeOutput = recipeOutputIn;
-        this.recipeItems = recipeItemsIn;
-        this.isSimple = recipeItemsIn.stream().allMatch(Ingredient::isSimple);
+        this.recipeOutput = recipeOutput;
+        this.recipeItems = recipeItems;
+        this.isSimple = recipeItems.stream().allMatch(Ingredient::isSimple);
+        this.bottle = bottle;
     }
 
     @Override
-    public boolean matches(IInventory inv, World worldIn) {
+    public boolean matches(BlenderTileEntity inv, World worldIn) {
         RecipeItemHelper recipeitemhelper = new RecipeItemHelper();
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
@@ -51,11 +46,11 @@ public class BlendingRecipe implements IRecipe {
             }
         }
 
-        return i == this.recipeItems.size() && (isSimple ? recipeitemhelper.canCraft(this, (IntList) null) : net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.recipeItems) != null);
+        return i == this.recipeItems.size() && (isSimple ? recipeitemhelper.canCraft(this, null) : RecipeMatcher.findMatches(inputs, this.recipeItems) != null);
     }
 
     @Override
-    public ItemStack getCraftingResult(IInventory inv) {
+    public ItemStack getCraftingResult(BlenderTileEntity inv) {
         return this.recipeOutput.copy();
     }
 
@@ -76,7 +71,7 @@ public class BlendingRecipe implements IRecipe {
 
     @Override
     public IRecipeType<?> getType() {
-        return IRecipeType.CRAFTING;
+        return GKRecipes.BLENDING_TYPE;
     }
 
     @Override
@@ -84,22 +79,34 @@ public class BlendingRecipe implements IRecipe {
         return GKRecipes.BLENDING_SERIALIZER.get();
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ShapelessRecipe> {
-
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlendingRecipe> {
         @Override
-        public ShapelessRecipe read(ResourceLocation recipeId, JsonObject json) {
-            return null;
+        public BlendingRecipe read(ResourceLocation recipeId, JsonObject json) {
+            final NonNullList<Ingredient> items = NonNullList.create();
+            for (JsonElement element : json.getAsJsonArray("ingredients")) {
+                items.add(Ingredient.deserialize(element));
+            }
+            return new BlendingRecipe(recipeId, ShapedRecipe.deserializeItem(json.getAsJsonObject("result")), items, Ingredient.deserialize(json.get("bottle")));
         }
 
         @Nullable
         @Override
-        public ShapelessRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            return null;
+        public BlendingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+            final NonNullList<Ingredient> items = NonNullList.withSize(buffer.readVarInt(), Ingredient.EMPTY);
+            for (int i = 0; i < items.size(); i++) {
+                items.set(i, Ingredient.read(buffer));
+            }
+            return new BlendingRecipe(recipeId, buffer.readItemStack(), items, Ingredient.read(buffer));
         }
 
         @Override
-        public void write(PacketBuffer buffer, ShapelessRecipe recipe) {
-
+        public void write(PacketBuffer buffer, BlendingRecipe recipe) {
+            buffer.writeVarInt(recipe.recipeItems.size());
+            for (Ingredient recipeItem : recipe.recipeItems) {
+                recipeItem.write(buffer);
+            }
+            buffer.writeItemStack(recipe.recipeOutput);
+            recipe.bottle.write(buffer);
         }
     }
 }
