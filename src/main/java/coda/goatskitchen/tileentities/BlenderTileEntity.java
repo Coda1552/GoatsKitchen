@@ -93,7 +93,7 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
                 for (int i = 0; i < 9; i++) {
                     removeItem(i);
                 }
-                setInventorySlotContents(9, ItemStack.EMPTY);
+                getStackInSlot(9).shrink(1);
                 //Set the output
                 setInventorySlotContents(10, currentRecipe.getCraftingResult(this));
                 currentRecipe = null;
@@ -124,7 +124,7 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
         assert world != null;
         //If output is empty, check for recipe
         if (getStackInSlot(10).isEmpty()) {
-            world.getRecipeManager().getRecipe(GKRecipes.BLENDING_TYPE, this, world).ifPresent(recipe -> currentRecipe = recipe);
+            currentRecipe = world.getRecipeManager().getRecipe(GKRecipes.BLENDING_TYPE, this, world).orElse(null);
         }
     }
 }
