@@ -14,6 +14,8 @@ import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
     private final ResourceLocation id;
@@ -32,11 +34,14 @@ public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
 
     @Override
     public boolean matches(BlenderTileEntity inv, World worldIn) {
+        if (!bottle.test(inv.getStackInSlot(9))) {
+            return false;
+        }
         RecipeItemHelper recipeitemhelper = new RecipeItemHelper();
-        java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
+        List<ItemStack> inputs = new ArrayList<>();
         int i = 0;
 
-        for (int j = 0; j < inv.getSizeInventory(); ++j) {
+        for (int j = 0; j < inv.getSizeInventory() - 2; ++j) {
             ItemStack itemstack = inv.getStackInSlot(j);
             if (!itemstack.isEmpty()) {
                 ++i;
