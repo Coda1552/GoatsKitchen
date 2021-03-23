@@ -32,7 +32,7 @@ public class BlenderTileEntityRenderer extends TileEntityRenderer<BlenderTileEnt
 
     @Override
     public void render(BlenderTileEntity te, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        for (int i = 0; i < te.getSizeInventory(); i++) {
+        for (int i = 0; i < te.getSizeInventory() - 2; i++) {
             final float[] transformation = TRANSFORMATIONS[i];
             final ItemStack stack = te.getStackInSlot(i);
             matrixStack.push();

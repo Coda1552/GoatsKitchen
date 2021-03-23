@@ -61,7 +61,7 @@ public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
 
     @Override
     public boolean canFit(int width, int height) {
-        return width * height >= this.recipeItems.size();
+        return true;
     }
 
     @Override

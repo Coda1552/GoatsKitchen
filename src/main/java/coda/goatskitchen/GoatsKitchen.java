@@ -1,9 +1,6 @@
 package coda.goatskitchen;
 
-import coda.goatskitchen.init.GKBlocks;
-import coda.goatskitchen.init.GKContainers;
-import coda.goatskitchen.init.GKItems;
-import coda.goatskitchen.init.GKTileEntities;
+import coda.goatskitchen.init.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,6 +19,7 @@ public class GoatsKitchen {
         GKTileEntities.REGISTRY.register(bus);
         GKItems.REGISTRY.register(bus);
         GKContainers.REGISTRY.register(bus);
+        GKRecipes.SERIALIZERS.register(bus);
     }
 
     public final static ItemGroup GROUP = new ItemGroup(MOD_ID) {
