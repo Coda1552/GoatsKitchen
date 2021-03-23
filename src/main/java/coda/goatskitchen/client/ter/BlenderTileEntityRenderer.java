@@ -37,7 +37,7 @@ public class BlenderTileEntityRenderer extends TileEntityRenderer<BlenderTileEnt
             final ItemStack stack = te.getStackInSlot(i);
             matrixStack.push();
             matrixStack.translate(transformation[0], transformation[1], transformation[2]);
-            matrixStack.rotate(Vector3f.YN.rotationDegrees((transformation[3] + te.blendingTicks) % 360));
+            matrixStack.rotate(Vector3f.YN.rotationDegrees((transformation[3] + te.blendingTicks * 15) % 360));
             matrixStack.scale(0.65f, 0.65f, 0.65f);
 
             IBakedModel model = mc.getItemRenderer().getItemModelWithOverrides(stack, null, null);

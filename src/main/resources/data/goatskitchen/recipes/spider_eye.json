@@ -1,0 +1,14 @@
+{
+  "type": "goatskitchen:blending",
+  "ingredients": [
+    {
+      "item": "minecraft:spider_eye"
+    }
+  ],
+  "bottle": {
+    "item": "minecraft:glass_bottle"
+  },
+  "result": {
+    "item": "minecraft:potion"
+  }
+}

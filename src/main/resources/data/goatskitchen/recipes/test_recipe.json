@@ -1,0 +1,38 @@
+{
+  "type": "goatskitchen:blending",
+  "ingredients": [
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:cod"
+    },
+    {
+      "item": "minecraft:snowball"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:melon_slice"
+    },
+    {
+      "item": "minecraft:cookie"
+    },
+    {
+      "item": "minecraft:yellow_dye"
+    }
+  ],
+  "bottle": {
+    "item": "minecraft:glass_bottle"
+  },
+  "result": {
+    "item": "minecraft:potion"
+  }
+}
