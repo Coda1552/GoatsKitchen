@@ -17,8 +17,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.Optional;
-
 public class BlenderTileEntity extends LockableLootTileEntity implements ITickableTileEntity {
     public static int slots = 11;
     protected NonNullList<ItemStack> items = NonNullList.withSize(slots, ItemStack.EMPTY);

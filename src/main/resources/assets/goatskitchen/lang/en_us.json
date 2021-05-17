@@ -1,7 +1,11 @@
 {
   "itemGroup.goatskitchen": "Goat's Kitchen",
 
+  "item.goatskitchen.popped_wee_wee": "Popped Wee Wee",
+
   "block.goatskitchen.blender": "Blender",
+
+  "entity.goatskitchen.chef": "Chef",
 
   "container.goatskitchen.blender": "Blender"
 }

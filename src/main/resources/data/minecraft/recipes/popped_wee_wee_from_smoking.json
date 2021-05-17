@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "fins:wee_wee"
+  },
+  "result": "goatskitchen:popped_wee_wee",
+  "experience": 0.35,
+  "cookingtime": 100,
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "thecroodaceousera:ramu_egg"
+    }
+  ]
+}

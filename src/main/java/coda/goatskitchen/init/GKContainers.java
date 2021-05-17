@@ -12,5 +12,4 @@ public class GKContainers {
     public static final DeferredRegister<ContainerType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.CONTAINERS, GoatsKitchen.MOD_ID);
 
     public static final RegistryObject<ContainerType<BlenderContainer>> BLENDER_CONTAINER = REGISTRY.register("blender", () -> IForgeContainerType.create(BlenderContainer::new));
-
 }
