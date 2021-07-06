@@ -5,34 +5,34 @@
       "item": "minecraft:sweet_berries"
     },
     {
-      "item": "minecraft:leather"
+      "item": "minecraft:sweet_berries"
     },
     {
-      "item": "minecraft:cod"
+      "item": "minecraft:sweet_berries"
     },
     {
-      "item": "minecraft:snowball"
+      "item": "minecraft:sugar"
     },
     {
-      "item": "minecraft:gunpowder"
+      "item": "minecraft:sugar"
     },
     {
-      "item": "minecraft:glowstone_dust"
+      "item": "minecraft:sugar"
     },
     {
-      "item": "minecraft:melon_slice"
+      "item": "minecraft:bone_meal"
     },
     {
-      "item": "minecraft:cookie"
+      "item": "minecraft:bone_meal"
     },
     {
-      "item": "minecraft:yellow_dye"
+      "item": "minecraft:slime_ball"
     }
   ],
   "bottle": {
-    "item": "minecraft:glass_bottle"
+    "item": "minecraft:air"
   },
   "result": {
-    "item": "minecraft:potion"
+    "item": "goatskitchen:sweet_berry_jello"
   }
 }

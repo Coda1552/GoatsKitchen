@@ -1,6 +1,6 @@
 package coda.goatskitchen.client.ter;
 
-import coda.goatskitchen.tileentities.BlenderTileEntity;
+import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -32,17 +32,17 @@ public class BlenderTileEntityRenderer extends TileEntityRenderer<BlenderTileEnt
 
     @Override
     public void render(BlenderTileEntity te, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        for (int i = 0; i < te.getSizeInventory() - 2; i++) {
+        for (int i = 0; i < te.getContainerSize() - 2; i++) {
             final float[] transformation = TRANSFORMATIONS[i];
-            final ItemStack stack = te.getStackInSlot(i);
-            matrixStack.push();
+            final ItemStack stack = te.getItem(i);
+            matrixStack.pushPose();
             matrixStack.translate(transformation[0], transformation[1], transformation[2]);
-            matrixStack.rotate(Vector3f.YN.rotationDegrees((transformation[3] + te.blendingTicks * 15) % 360));
+            matrixStack.mulPose(Vector3f.YN.rotationDegrees((transformation[3] + te.blendingTicks * 15) % 360));
             matrixStack.scale(0.65f, 0.65f, 0.65f);
 
-            IBakedModel model = mc.getItemRenderer().getItemModelWithOverrides(stack, null, null);
-            mc.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, true, matrixStack, bufferIn, combinedLightIn, combinedOverlayIn, model);
-            matrixStack.pop();
+            IBakedModel model = mc.getItemRenderer().getModel(stack, null, null);
+            mc.getItemRenderer().render(stack, ItemCameraTransforms.TransformType.GROUND, true, matrixStack, bufferIn, combinedLightIn, combinedOverlayIn, model);
+            matrixStack.popPose();
         }
     }
 }

@@ -2,7 +2,7 @@ package coda.goatskitchen.client.renderer;
 
 import coda.goatskitchen.GoatsKitchen;
 import coda.goatskitchen.client.model.ChefModel;
-import coda.goatskitchen.entities.ChefEntity;
+import coda.goatskitchen.common.entities.ChefEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +17,7 @@ public class ChefRenderer extends MobRenderer<ChefEntity, ChefModel<ChefEntity>>
         super(renderManagerIn, new ChefModel(), 0.2F);
     }
 
-    public ResourceLocation getEntityTexture(ChefEntity entity) {
+    public ResourceLocation getTextureLocation(ChefEntity entity) {
         return TEXTURE;
     }
 }

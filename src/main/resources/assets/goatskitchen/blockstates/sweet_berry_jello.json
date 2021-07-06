@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "bites=0": {
+      "model": "goatskitchen:block/jello"
+    },
+    "bites=1": {
+      "model": "goatskitchen:block/jello_slice1"
+    },
+    "bites=2": {
+      "model": "goatskitchen:block/jello_slice2"
+    },
+    "bites=3": {
+      "model": "goatskitchen:block/jello_slice3"
+    },
+    "bites=4": {
+      "model": "goatskitchen:block/jello_slice4"
+    },
+    "bites=5": {
+      "model": "goatskitchen:block/jello_slice5"
+    },
+    "bites=6": {
+      "model": "goatskitchen:block/jello_slice6"
+    }
+  }
+}

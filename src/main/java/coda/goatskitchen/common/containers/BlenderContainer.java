@@ -1,9 +1,9 @@
-package coda.goatskitchen.containers;
+package coda.goatskitchen.common.containers;
 
-import coda.goatskitchen.containers.slot.BlenderBottleSlot;
+import coda.goatskitchen.common.containers.slot.BlenderBottleSlot;
 import coda.goatskitchen.init.GKBlocks;
 import coda.goatskitchen.init.GKContainers;
-import coda.goatskitchen.tileentities.BlenderTileEntity;
+import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -24,7 +24,7 @@ public class BlenderContainer extends Container {
     public BlenderContainer(final int windowId, final PlayerInventory playerInventory, BlenderTileEntity te) {
         super(GKContainers.BLENDER_CONTAINER.get(), windowId);
         this.te = te;
-        this.worldPosCallable = IWorldPosCallable.of(Objects.requireNonNull(te.getWorld()), te.getPos());
+        this.worldPosCallable = IWorldPosCallable.create(Objects.requireNonNull(te.getLevel()), te.getBlockPos());
 
         // Tile Entity
         this.addSlot(new Slot(te, 0, 14, 17));
@@ -62,7 +62,7 @@ public class BlenderContainer extends Container {
     private static BlenderTileEntity getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {
         Objects.requireNonNull(playerInventory, "Player Inventory cannot be null");
         Objects.requireNonNull(data, "Packet Buffer cannot be null");
-        final TileEntity te = playerInventory.player.world.getTileEntity(data.readBlockPos());
+        final TileEntity te = playerInventory.player.level.getBlockEntity(data.readBlockPos());
 
         if (te instanceof BlenderTileEntity) {
             return (BlenderTileEntity) te;
@@ -72,32 +72,32 @@ public class BlenderContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(worldPosCallable, playerIn, GKBlocks.BLENDER.get());
+    public boolean stillValid(PlayerEntity playerIn) {
+        return stillValid(worldPosCallable, playerIn, GKBlocks.BLENDER.get());
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack stack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack stack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack stack1 = slot.getItem();
             stack = stack1.copy();
 
             if (index < BlenderTileEntity.slots) {
-                if (!this.mergeItemStack(stack1, 0, this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(stack1, 0, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(stack1, 0, 10, true)) {
+            else if (!this.moveItemStackTo(stack1, 0, 10, true)) {
                 return ItemStack.EMPTY;
             }
 
             if (stack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             }
             else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 

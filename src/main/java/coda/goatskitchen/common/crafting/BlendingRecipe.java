@@ -1,7 +1,7 @@
-package coda.goatskitchen.crafting;
+package coda.goatskitchen.common.crafting;
 
 import coda.goatskitchen.init.GKRecipes;
-import coda.goatskitchen.tileentities.BlenderTileEntity;
+import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
@@ -21,51 +21,46 @@ public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
     private final ResourceLocation id;
     private final ItemStack recipeOutput;
     private final NonNullList<Ingredient> recipeItems;
-    private final boolean isSimple;
     private final Ingredient bottle;
 
     public BlendingRecipe(ResourceLocation idIn, ItemStack recipeOutput, NonNullList<Ingredient> recipeItems, Ingredient bottle) {
         this.id = idIn;
         this.recipeOutput = recipeOutput;
         this.recipeItems = recipeItems;
-        this.isSimple = recipeItems.stream().allMatch(Ingredient::isSimple);
         this.bottle = bottle;
     }
 
     @Override
     public boolean matches(BlenderTileEntity inv, World worldIn) {
-        if (!bottle.test(inv.getStackInSlot(9))) {
+        if (!bottle.test(inv.getItem(9))) {
             return false;
         }
-        RecipeItemHelper recipeitemhelper = new RecipeItemHelper();
         List<ItemStack> inputs = new ArrayList<>();
         int i = 0;
 
-        for (int j = 0; j < inv.getSizeInventory() - 2; ++j) {
-            ItemStack itemstack = inv.getStackInSlot(j);
+        for (int j = 0; j < inv.getContainerSize() - 2; ++j) {
+            ItemStack itemstack = inv.getItem(j);
             if (!itemstack.isEmpty()) {
                 ++i;
-                if (isSimple)
-                    recipeitemhelper.func_221264_a(itemstack, 1);
-                else inputs.add(itemstack);
+                inputs.add(itemstack);
             }
         }
 
-        return i == this.recipeItems.size() && (isSimple ? recipeitemhelper.canCraft(this, null) : RecipeMatcher.findMatches(inputs, this.recipeItems) != null);
+        return i == this.recipeItems.size() && RecipeMatcher.findMatches(inputs, this.recipeItems) != null;
     }
 
     @Override
-    public ItemStack getCraftingResult(BlenderTileEntity inv) {
+    public ItemStack assemble(BlenderTileEntity inv) {
         return this.recipeOutput.copy();
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.recipeOutput;
     }
 
@@ -86,32 +81,32 @@ public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlendingRecipe> {
         @Override
-        public BlendingRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public BlendingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             final NonNullList<Ingredient> items = NonNullList.create();
             for (JsonElement element : json.getAsJsonArray("ingredients")) {
-                items.add(Ingredient.deserialize(element));
+                items.add(Ingredient.fromJson(element));
             }
-            return new BlendingRecipe(recipeId, ShapedRecipe.deserializeItem(json.getAsJsonObject("result")), items, Ingredient.deserialize(json.get("bottle")));
+            return new BlendingRecipe(recipeId, ShapedRecipe.itemFromJson(json.getAsJsonObject("result")), items, Ingredient.fromJson(json.get("bottle")));
         }
 
         @Nullable
         @Override
-        public BlendingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public BlendingRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
             final NonNullList<Ingredient> items = NonNullList.withSize(buffer.readVarInt(), Ingredient.EMPTY);
             for (int i = 0; i < items.size(); i++) {
-                items.set(i, Ingredient.read(buffer));
+                items.set(i, Ingredient.fromNetwork(buffer));
             }
-            return new BlendingRecipe(recipeId, buffer.readItemStack(), items, Ingredient.read(buffer));
+            return new BlendingRecipe(recipeId, buffer.readItem(), items, Ingredient.fromNetwork(buffer));
         }
 
         @Override
-        public void write(PacketBuffer buffer, BlendingRecipe recipe) {
+        public void toNetwork(PacketBuffer buffer, BlendingRecipe recipe) {
             buffer.writeVarInt(recipe.recipeItems.size());
             for (Ingredient recipeItem : recipe.recipeItems) {
-                recipeItem.write(buffer);
+                recipeItem.toNetwork(buffer);
             }
-            buffer.writeItemStack(recipe.recipeOutput);
-            recipe.bottle.write(buffer);
+            buffer.writeItem(recipe.recipeOutput);
+            recipe.bottle.toNetwork(buffer);
         }
     }
 }

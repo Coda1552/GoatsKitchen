@@ -1,15 +1,14 @@
-package coda.goatskitchen.tileentities;
+package coda.goatskitchen.common.tileentities;
 
 import coda.goatskitchen.GoatsKitchen;
-import coda.goatskitchen.containers.BlenderContainer;
-import coda.goatskitchen.crafting.BlendingRecipe;
+import coda.goatskitchen.common.containers.BlenderContainer;
+import coda.goatskitchen.common.crafting.BlendingRecipe;
 import coda.goatskitchen.init.GKRecipes;
 import coda.goatskitchen.init.GKTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.*;
@@ -38,9 +37,9 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
-        if (!this.checkLootAndWrite(compound)) {
+    public CompoundNBT save(CompoundNBT compound) {
+        super.save(compound);
+        if (!this.trySaveLootTable(compound)) {
             ItemStackHelper.saveAllItems(compound, this.items);
         }
 
@@ -48,10 +47,10 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
-        super.read(state, nbt);
-        this.items = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
-        if (!this.checkLootAndRead(nbt)) {
+    public void load(BlockState state, CompoundNBT nbt) {
+        super.load(state, nbt);
+        this.items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
+        if (!this.tryLoadLootTable(nbt)) {
             ItemStackHelper.loadAllItems(nbt, this.items);
         }
     }
@@ -61,14 +60,14 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
     }
 
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return slots;
     }
 
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < getSizeInventory(); i++) {
-            if (!getStackInSlot(i).isEmpty()) return false;
+        for (int i = 0; i < getContainerSize(); i++) {
+            if (!getItem(i).isEmpty()) return false;
         }
         return true;
     }
@@ -91,9 +90,9 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
                 for (int i = 0; i < 9; i++) {
                     removeItem(i);
                 }
-                getStackInSlot(9).shrink(1);
+                getItem(9).shrink(1);
                 //Set the output
-                setInventorySlotContents(10, currentRecipe.getCraftingResult(this));
+                setItem(10, currentRecipe.assemble(this));
                 currentRecipe = null;
                 blendingTicks = 0;
             }
@@ -101,7 +100,7 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
     }
 
     private void removeItem(int slot) {
-        ItemStack stack = getStackInSlot(slot);
+        ItemStack stack = getItem(slot);
         if (stack.hasContainerItem())
             this.items.set(slot, stack.getContainerItem());
         else if (!stack.isEmpty()) {
@@ -113,16 +112,16 @@ public class BlenderTileEntity extends LockableLootTileEntity implements ITickab
     }
 
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        super.setInventorySlotContents(index, stack);
+    public void setItem(int index, ItemStack stack) {
+        super.setItem(index, stack);
         onSlotChanged();
     }
 
     public void onSlotChanged() {
-        assert world != null;
+        assert level != null;
         //If output is empty, check for recipe
-        if (getStackInSlot(10).isEmpty()) {
-            currentRecipe = world.getRecipeManager().getRecipe(GKRecipes.BLENDING_TYPE, this, world).orElse(null);
+        if (getItem(10).isEmpty()) {
+            currentRecipe = level.getRecipeManager().getRecipeFor(GKRecipes.BLENDING_TYPE, this, level).orElse(null);
         }
     }
 }

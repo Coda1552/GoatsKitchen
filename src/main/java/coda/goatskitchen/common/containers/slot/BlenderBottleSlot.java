@@ -1,4 +1,4 @@
-package coda.goatskitchen.containers.slot;
+package coda.goatskitchen.common.containers.slot;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
@@ -11,11 +11,11 @@ public class BlenderBottleSlot extends Slot {
         super(inventory, index, xPos, yPos);
     }
 
-    public boolean isItemValid(ItemStack stack) {
+    public boolean mayPlace(ItemStack stack) {
         return stack.getItem() == Items.GLASS_BOTTLE;
     }
 
-    public int getItemStackLimit(ItemStack stack) {
-        return super.getItemStackLimit(stack);
+    public int getMaxStackSize(ItemStack stack) {
+        return super.getMaxStackSize(stack);
     }
 }

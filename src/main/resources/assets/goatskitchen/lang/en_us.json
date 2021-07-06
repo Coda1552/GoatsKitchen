@@ -2,8 +2,17 @@
   "itemGroup.goatskitchen": "Goat's Kitchen",
 
   "item.goatskitchen.popped_wee_wee": "Popped Wee Wee",
+  "item.goatskitchen.cheese": "Cheese",
+  "item.goatskitchen.wine_bottle": "Bottle o' Wine",
+  "item.goatskitchen.pineapple_seeds": "Pineapple Seeds",
+  "item.goatskitchen.sweet_berry_jello": "Sweet Berry Jello",
+
+  "item.goatskitchen.chef_spawn_egg": "Chef Spawn Egg",
 
   "block.goatskitchen.blender": "Blender",
+  "block.goatskitchen.pineapple": "Pineapple",
+  "block.goatskitchen.pineapple_stem": "Pineapple Stem",
+  "block.goatskitchen.attached_pineapple_stem": "Attached Pineapple Stem",
 
   "entity.goatskitchen.chef": "Chef",
 
