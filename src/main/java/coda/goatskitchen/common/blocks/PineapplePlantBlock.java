@@ -1,17 +1,21 @@
 package coda.goatskitchen.common.blocks;
 
+import coda.goatskitchen.GoatsKitchen;
 import coda.goatskitchen.common.init.GKItems;
 import net.minecraft.block.*;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.SwordItem;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameterSets;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -20,12 +24,15 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.List;
 import java.util.Random;
 
 public class PineapplePlantBlock extends BushBlock implements IGrowable {
    public static final IntegerProperty AGE = BlockStateProperties.AGE_5;
    private static final VoxelShape SAPLING_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
    private static final VoxelShape MID_GROWTH_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+   private static final ResourceLocation PINEAPPLE_LOOT = new ResourceLocation(GoatsKitchen.MOD_ID, "gameplay/pineapple_slicing");
+   private final Random random = new Random();
 
    public PineapplePlantBlock(AbstractBlock.Properties p_i49971_1_) {
       super(p_i49971_1_);
@@ -34,7 +41,7 @@ public class PineapplePlantBlock extends BushBlock implements IGrowable {
 
    @Override
    public ItemStack getCloneItemStack(IBlockReader p_185473_1_, BlockPos p_185473_2_, BlockState p_185473_3_) {
-      return new ItemStack(GKItems.PINEAPPLE_SEEDS.get());
+      return new ItemStack(GKItems.PINEAPPLE_CROWN.get());
    }
 
    @Override
@@ -72,15 +79,30 @@ public class PineapplePlantBlock extends BushBlock implements IGrowable {
       boolean flag = i == 5;
       if (!flag && p_225533_4_.getItemInHand(p_225533_5_).getItem() == Items.BONE_MEAL) {
          return ActionResultType.PASS;
-      } else if (i >= 5) {
-         popResource(p_225533_2_, p_225533_3_, new ItemStack(GKItems.PINEAPPLE.get(), 1));
+      } else if (flag && (p_225533_4_.getItemInHand(p_225533_5_).getItem() instanceof SwordItem)) {
+         popResource(p_225533_2_, p_225533_3_, new ItemStack(GKItems.PINEAPPLE_CROWN.get()));
+         popResource(p_225533_2_, p_225533_3_, new ItemStack(GKItems.PINEAPPLE_CUTTINGS.get(), random.nextInt(3) + 2));
+
+         int level = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, p_225533_4_.getItemInHand(p_225533_5_));
+         if (level > 0) {
+            for (int j = 0; j <= level; j++) {
+               popResource(p_225533_2_, p_225533_3_, new ItemStack(GKItems.PINEAPPLE_CUTTINGS.get(), random.nextInt(2)));
+            }
+         }
+
+         p_225533_2_.playSound(null, p_225533_3_, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + p_225533_2_.random.nextFloat() * 0.4F);
+         p_225533_2_.setBlock(p_225533_3_, p_225533_1_.setValue(AGE, Integer.valueOf(1)), 1);
+         return ActionResultType.sidedSuccess(p_225533_2_.isClientSide);
+      } else if (flag) {
+         popResource(p_225533_2_, p_225533_3_, new ItemStack(GKItems.PINEAPPLE.get()));
          p_225533_2_.playSound(null, p_225533_3_, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + p_225533_2_.random.nextFloat() * 0.4F);
          p_225533_2_.setBlock(p_225533_3_, p_225533_1_.setValue(AGE, Integer.valueOf(2)), 1);
          return ActionResultType.sidedSuccess(p_225533_2_.isClientSide);
-      } else {
-         return super.use(p_225533_1_, p_225533_2_, p_225533_3_, p_225533_4_, p_225533_5_, p_225533_6_);
+
       }
+      return super.use(p_225533_1_, p_225533_2_, p_225533_3_, p_225533_4_, p_225533_5_, p_225533_6_);
    }
+
 
    @Override
    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> p_206840_1_) {

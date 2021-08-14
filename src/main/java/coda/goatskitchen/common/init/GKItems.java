@@ -15,7 +15,9 @@ public class GKItems {
     public static final RegistryObject<Item> WINE_BOTTLE = REGISTER.register("wine_bottle", () -> new Item(new Item.Properties().tab(GoatsKitchen.GROUP)));
     public static final RegistryObject<Item> SWEET_BERRY_JELLO = REGISTER.register("sweet_berry_jello", () -> new Item(new Item.Properties().tab(GoatsKitchen.GROUP).food(new Food.Builder().saturationMod(0.5f).nutrition(6).build())));
     public static final RegistryObject<Item> PINEAPPLE_SEEDS = REGISTER.register("pineapple_seeds", () -> new BlockNamedItem(GKBlocks.PINEAPPLE.get(), new Item.Properties().tab(GoatsKitchen.GROUP)));
-    public static final RegistryObject<Item> PINEAPPLE = REGISTER.register("pineapple", () -> new Item(new Item.Properties().tab(GoatsKitchen.GROUP).food(new Food.Builder().saturationMod(0.35f).nutrition(2).build())));
+    public static final RegistryObject<Item> PINEAPPLE = REGISTER.register("pineapple", () -> new Item(new Item.Properties().tab(GoatsKitchen.GROUP).food(new Food.Builder().saturationMod(0.35f).nutrition(3).build())));
+    public static final RegistryObject<Item> PINEAPPLE_CROWN = REGISTER.register("pineapple_crown", () -> new BlockNamedItem(GKBlocks.PINEAPPLE.get(), new Item.Properties().tab(GoatsKitchen.GROUP)));
+    public static final RegistryObject<Item> PINEAPPLE_CUTTINGS = REGISTER.register("pineapple_cuttings", () -> new Item(new Item.Properties().tab(GoatsKitchen.GROUP).food(new Food.Builder().saturationMod(0.2f).nutrition(2).fast().build())));
 
     // Other
     public static final RegistryObject<Item> CHEF_SPAWN_EGG = REGISTER.register("chef_spawn_egg", () -> new GKSpawnEggItem(GKEntities.CHEF, 0x9f8484, 0x473a3a, new Item.Properties().tab(GoatsKitchen.GROUP)));

@@ -27,7 +27,6 @@ public class ChefEntity extends AbstractVillagerEntity implements IMerchant {
     public static final Int2ObjectMap<VillagerTrades.ITrade[]> CHEF_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
             new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 3), new ItemStack(GKItems.WINE_BOTTLE.get()), 2, 3, 30),
             new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 6), new ItemStack(GKItems.PINEAPPLE.get(), 1), 2, 3, 30),
-            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 4), new ItemStack(GKItems.PINEAPPLE_SEEDS.get(), 2), 2, 3, 30),
             new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 7), new ItemStack(Items.BREAD, 2), 3, 3, 30),
             new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 6), new ItemStack(GKItems.SWEET_BERRY_JELLO.get(), 1), 2, 3, 30),
     }));

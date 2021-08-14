@@ -97,8 +97,8 @@ public class LonghornModel<T extends Entity> extends AgeableModel<LonghornEntity
         float degree = 1.0f;
         this.body.zRot = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.1F * limbSwingAmount;
         this.chest.zRot = MathHelper.cos(1.0F + limbSwing * speed * 0.4F) * degree * 0.1F * limbSwingAmount;
-        this.chest.y = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.075F * limbSwingAmount;
-        this.head.y = MathHelper.cos(-1.0F + limbSwing * speed * 0.4F) * degree * 0.15F * limbSwingAmount - 5.0F;
+        this.chest.y = MathHelper.cos(limbSwing * speed * 0.4F) * degree * 0.3F * limbSwingAmount;
+        this.head.y = MathHelper.cos(-1.0F + limbSwing * speed * 0.4F) * degree * 0.45F * limbSwingAmount - 5.0F;
         this.head.xRot = MathHelper.cos(-1.0F + limbSwing * speed * 0.4F) * degree * 0.25F * limbSwingAmount - 0.9F;
         this.tail.zRot = MathHelper.cos(-1.0F + limbSwing * speed * 0.2F) * degree * 1.0F * limbSwingAmount;
         this.tail.xRot = MathHelper.cos(-1.0F + limbSwing * speed * 0.4F) * degree * 0.4F * limbSwingAmount + 0.25F;
