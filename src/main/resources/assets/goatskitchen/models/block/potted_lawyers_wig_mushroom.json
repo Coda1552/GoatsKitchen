@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/flower_pot_cross",
+  "textures": {
+    "plant": "goatskitchen:block/lawyers_wig_mushroom"
+  }
+}

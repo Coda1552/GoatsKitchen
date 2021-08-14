@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "goatskitchen:item/pineapple"
+    "layer0": "goatskitchen:block/lawyers_wig_mushroom"
   }
 }

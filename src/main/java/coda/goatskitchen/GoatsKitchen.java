@@ -1,7 +1,8 @@
 package coda.goatskitchen;
 
 import coda.goatskitchen.common.entities.ChefEntity;
-import coda.goatskitchen.init.*;
+import coda.goatskitchen.common.entities.LonghornEntity;
+import coda.goatskitchen.common.init.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -23,11 +24,13 @@ public class GoatsKitchen {
         GKItems.REGISTER.register(bus);
         GKEntities.REGISTER.register(bus);
         GKContainers.REGISTER.register(bus);
+        GKFeatures.REGISTER.register(bus);
         GKRecipes.REGISTER.register(bus);
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(GKEntities.CHEF.get(), ChefEntity.createAttributes().build());
+        event.put(GKEntities.LONGHORN.get(), LonghornEntity.createAttributes().build());
     }
 
     public final static ItemGroup GROUP = new ItemGroup(MOD_ID) {

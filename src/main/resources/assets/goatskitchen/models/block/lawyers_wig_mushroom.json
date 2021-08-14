@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "goatskitchen:block/lawyers_wig_mushroom"
+  }
+}

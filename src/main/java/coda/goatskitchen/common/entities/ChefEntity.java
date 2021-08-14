@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.entities;
 
-import coda.goatskitchen.init.GKItems;
+import coda.goatskitchen.common.init.GKItems;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -24,10 +24,13 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class ChefEntity extends AbstractVillagerEntity implements IMerchant {
-    public static final Int2ObjectMap<VillagerTrades.ITrade[]> CHEF_TRADES = toIntMap(ImmutableMap.of(1,
-            new VillagerTrades.ITrade[]{new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 3), new ItemStack(GKItems.WINE_BOTTLE.get()), 3, 3, 30),
-            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 5), new ItemStack(GKItems.PINEAPPLE.get(), 1), 3, 3, 30)},
-            2, new VillagerTrades.ITrade[]{new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 7), new ItemStack(Items.BREAD, 2), 3, 3, 30)}));
+    public static final Int2ObjectMap<VillagerTrades.ITrade[]> CHEF_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
+            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 3), new ItemStack(GKItems.WINE_BOTTLE.get()), 2, 3, 30),
+            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 6), new ItemStack(GKItems.PINEAPPLE.get(), 1), 2, 3, 30),
+            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 4), new ItemStack(GKItems.PINEAPPLE_SEEDS.get(), 2), 2, 3, 30),
+            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 7), new ItemStack(Items.BREAD, 2), 3, 3, 30),
+            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 6), new ItemStack(GKItems.SWEET_BERRY_JELLO.get(), 1), 2, 3, 30),
+    }));
 
     public ChefEntity(EntityType<? extends AbstractVillagerEntity> type, World worldIn) {
         super(type, worldIn);
@@ -37,9 +40,9 @@ public class ChefEntity extends AbstractVillagerEntity implements IMerchant {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new TradeWithPlayerGoal(this));
-        this.goalSelector.addGoal(1, new LookAtCustomerGoal(this));
-        this.goalSelector.addGoal(9, new LookAtWithoutMovingGoal(this, PlayerEntity.class, 3.0F, 1.0F));
-        this.goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8.0F));
+        this.goalSelector.addGoal(2, new LookAtCustomerGoal(this));
+        this.goalSelector.addGoal(3, new LookAtWithoutMovingGoal(this, PlayerEntity.class, 3.0F, 1.0F));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, MobEntity.class, 8.0F));
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
@@ -81,12 +84,11 @@ public class ChefEntity extends AbstractVillagerEntity implements IMerchant {
 
     protected void updateTrades() {
         VillagerTrades.ITrade[] trade1 = CHEF_TRADES.get(1);
-        VillagerTrades.ITrade[] trade2 = CHEF_TRADES.get(2);
-        if (trade1 != null && trade2 != null) {
+        if (trade1 != null) {
             MerchantOffers offers = this.getOffers();
             this.addOffersFromItemListings(offers, trade1, 5);
-            int i = this.random.nextInt(trade2.length);
-            VillagerTrades.ITrade villagertrades$itrade = trade2[i];
+            int i = this.random.nextInt(trade1.length);
+            VillagerTrades.ITrade villagertrades$itrade = trade1[i];
             MerchantOffer merchantoffer = villagertrades$itrade.getOffer(this, this.random);
             if (merchantoffer != null) {
                 offers.add(merchantoffer);

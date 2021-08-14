@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.blocks;
 
-import coda.goatskitchen.init.GKTileEntities;
+import coda.goatskitchen.common.init.GKTileEntities;
 import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,8 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class BlenderBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 15.0D, 13.0D);
