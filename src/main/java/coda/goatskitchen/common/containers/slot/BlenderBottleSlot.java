@@ -1,13 +1,13 @@
 package coda.goatskitchen.common.containers.slot;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class BlenderBottleSlot extends Slot {
 
-    public BlenderBottleSlot(IInventory inventory, int index, int xPos, int yPos) {
+    public BlenderBottleSlot(Container inventory, int index, int xPos, int yPos) {
         super(inventory, index, xPos, yPos);
     }
 

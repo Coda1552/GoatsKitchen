@@ -4,27 +4,27 @@ import coda.goatskitchen.common.containers.slot.BlenderBottleSlot;
 import coda.goatskitchen.common.init.GKBlocks;
 import coda.goatskitchen.common.init.GKContainers;
 import coda.goatskitchen.common.tileentities.BlenderTileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.FurnaceResultSlot;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.FurnaceResultSlot;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Objects;
 
-public class BlenderContainer extends Container {
+public class BlenderContainer extends AbstractContainerMenu {
     public final BlenderTileEntity te;
-    private final IWorldPosCallable worldPosCallable;
+    private final ContainerLevelAccess worldPosCallable;
 
-    public BlenderContainer(final int windowId, final PlayerInventory playerInventory, BlenderTileEntity te) {
+    public BlenderContainer(final int windowId, final Inventory playerInventory, BlenderTileEntity te) {
         super(GKContainers.BLENDER_CONTAINER.get(), windowId);
         this.te = te;
-        this.worldPosCallable = IWorldPosCallable.create(Objects.requireNonNull(te.getLevel()), te.getBlockPos());
+        this.worldPosCallable = ContainerLevelAccess.create(Objects.requireNonNull(te.getLevel()), te.getBlockPos());
 
         // Tile Entity
         this.addSlot(new Slot(te, 0, 14, 17));
@@ -37,9 +37,9 @@ public class BlenderContainer extends Container {
         this.addSlot(new Slot(te, 7, 32, 53));
         this.addSlot(new Slot(te, 8, 50, 53));
 
-        this.addSlot(new BlenderBottleSlot((IInventory) te, 9, 89, 35));
+        this.addSlot(new BlenderBottleSlot(te, 9, 89, 35));
 
-        this.addSlot(new FurnaceResultSlot(playerInventory.player, (IInventory) te, 10, 141, 35));
+        this.addSlot(new FurnaceResultSlot(playerInventory.player, te, 10, 141, 35));
 
         // Main Player Inv
         for (int row = 0; row < 3; row++) {
@@ -55,14 +55,14 @@ public class BlenderContainer extends Container {
 
     }
 
-    public BlenderContainer(final int windowId, final PlayerInventory playerInventory, final PacketBuffer data) {
+    public BlenderContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId, playerInventory, getTileEntity(playerInventory, data));
     }
 
-    private static BlenderTileEntity getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {
+    private static BlenderTileEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInventory, "Player Inventory cannot be null");
         Objects.requireNonNull(data, "Packet Buffer cannot be null");
-        final TileEntity te = playerInventory.player.level.getBlockEntity(data.readBlockPos());
+        final BlockEntity te = playerInventory.player.level.getBlockEntity(data.readBlockPos());
 
         if (te instanceof BlenderTileEntity) {
             return (BlenderTileEntity) te;
@@ -72,15 +72,15 @@ public class BlenderContainer extends Container {
     }
 
     @Override
-    public boolean stillValid(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
         return stillValid(worldPosCallable, playerIn, GKBlocks.BLENDER.get());
     }
 
     @Override
-    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack stack1 = slot.getItem();
             stack = stack1.copy();
 

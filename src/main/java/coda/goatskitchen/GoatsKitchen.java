@@ -5,6 +5,8 @@ import coda.goatskitchen.common.entities.LonghornEntity;
 import coda.goatskitchen.common.init.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -33,7 +35,7 @@ public class GoatsKitchen {
         event.put(GKEntities.LONGHORN.get(), LonghornEntity.createAttributes().build());
     }
 
-    public final static ItemGroup GROUP = new ItemGroup(MOD_ID) {
+    public final static CreativeModeTab GROUP = new CreativeModeTab(MOD_ID) {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(GKBlocks.BLENDER.get());

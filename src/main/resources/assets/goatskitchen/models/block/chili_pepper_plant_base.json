@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "goatskitchen:block/chili_pepper_plant_base"
+  }
+}

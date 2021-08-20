@@ -2,17 +2,18 @@ package coda.goatskitchen.common.world.tree;
 
 import coda.goatskitchen.common.init.GKBlocks;
 import coda.goatskitchen.util.Entry;
-import net.minecraft.block.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class LawyersWigMushroomFeature extends Feature<NoFeatureConfig> {
+public class LawyersWigMushroomFeature extends Feature<NoneFeatureConfiguration> {
     private static final BlockState trunk = Blocks.MUSHROOM_STEM.defaultBlockState();
     private static final BlockState cap = GKBlocks.LAWYERS_WIG_MUSHROOM_BLOCK.get().defaultBlockState();
 
@@ -22,25 +23,17 @@ public class LawyersWigMushroomFeature extends Feature<NoFeatureConfig> {
     public static int minimumTrunkHeight = 4;
     public static int trunkHeightExtra = 1;
 
-    //branches on the trunk placement
-    public static int minimumBranchHeight = 2;
-    public static int branchHeightExtra = 0;
-
-    //thinner, 'top' trunk placement
-    public static int minimumTrunkTopHeight = 0;
-    public static int trunkTopHeightExtra = 0;
-
-    //branches on the top trunk placement
-    public static int minimumTopBranchHeight = 1;
-    public static int topBranchHeightExtra = 0;
-
-    public LawyersWigMushroomFeature()
-    {
-        super(NoFeatureConfig.CODEC);
+    public LawyersWigMushroomFeature() {
+        super(NoneFeatureConfiguration.CODEC);
     }
 
+
     @Override
-    public boolean place(ISeedReader iSeedReader, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, NoFeatureConfig noFeatureConfig) {
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        WorldGenLevel iSeedReader = context.level();
+        Random random = context.random();
+        BlockPos blockPos = context.origin();
+
         ArrayList<Entry> filler = new ArrayList<>();
         ArrayList<Entry> leavesFiller = new ArrayList<>();
         int trunkHeight = minimumTrunkHeight + random.nextInt(trunkHeightExtra + 1);
@@ -113,7 +106,7 @@ public class LawyersWigMushroomFeature extends Feature<NoFeatureConfig> {
         return false;
     }
 
-    public static boolean makeBranch(ArrayList<Entry> filler, ArrayList<Entry> leavesFiller, ISeedReader reader, BlockPos pos, int height) {
+    public static boolean makeBranch(ArrayList<Entry> filler, ArrayList<Entry> leavesFiller, WorldGenLevel reader, BlockPos pos, int height) {
         for (int k = 0; k < height; k++) {
             BlockPos branchPos = pos.above(k);
             if (!canPlace(reader, branchPos)) {
@@ -127,7 +120,7 @@ public class LawyersWigMushroomFeature extends Feature<NoFeatureConfig> {
         return true;
     }
 
-    public static boolean makeSlice(ArrayList<Entry> filler, ISeedReader reader, BlockPos pos, int sliceSize) {
+    public static boolean makeSlice(ArrayList<Entry> filler, WorldGenLevel reader, BlockPos pos, int sliceSize) {
 //        for (int x = -sliceSize; x <= sliceSize; x++) {
 //            for (int z = -sliceSize; z <= sliceSize; z++) {
 //                if (Math.abs(x) == sliceSize && Math.abs(z) == sliceSize) {
@@ -143,7 +136,7 @@ public class LawyersWigMushroomFeature extends Feature<NoFeatureConfig> {
         return true;
     }
 
-    public static void fill(ISeedReader reader, ArrayList<Entry> filler, boolean careful) {
+    public static void fill(WorldGenLevel reader, ArrayList<Entry> filler, boolean careful) {
         for (Entry entry : filler) {
             if (careful && !canPlace(reader, entry.pos)) {
                 continue;
@@ -152,11 +145,11 @@ public class LawyersWigMushroomFeature extends Feature<NoFeatureConfig> {
         }
     }
 
-    public static boolean canGrowTree(ISeedReader reader, BlockPos pos) {
+    public static boolean canGrowTree(WorldGenLevel reader, BlockPos pos) {
         return canPlace(reader, pos);
     }
 
-    public static boolean canPlace(ISeedReader reader, BlockPos pos) {
+    public static boolean canPlace(WorldGenLevel reader, BlockPos pos) {
         if (pos.getY() > reader.getMaxBuildHeight() || pos.getY() < 0) {
             return false;
         }
