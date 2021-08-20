@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
 
@@ -26,8 +27,7 @@ public class BlenderTileEntityRenderer implements BlockEntityRenderer<BlenderTil
 
     private final Minecraft mc = Minecraft.getInstance();
 
-    public BlenderTileEntityRenderer(BlockEntityRenderDispatcher rendererDispatcherIn) {
-        super(rendererDispatcherIn);
+    public BlenderTileEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override

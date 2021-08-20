@@ -3,17 +3,20 @@ package coda.goatskitchen.client.renderer;
 import coda.goatskitchen.GoatsKitchen;
 import coda.goatskitchen.client.model.ChefModel;
 import coda.goatskitchen.common.entities.ChefEntity;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ChefRenderer extends MobRenderer<ChefEntity, ChefModel<ChefEntity>> {
+public class ChefRenderer extends MobRenderer<ChefEntity, ChefModel> {
+    public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(new ResourceLocation(GoatsKitchen.MOD_ID, "chef"), "main");
     public static final ResourceLocation TEXTURE = new ResourceLocation(GoatsKitchen.MOD_ID, "textures/entity/chef.png");
 
-    public ChefRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new ChefModel(), 0.2F);
+    public ChefRenderer(EntityRendererProvider.Context context) {
+        super(context, new ChefModel(context.bakeLayer(MODEL_LAYER)), 0.2F);
     }
 
     public ResourceLocation getTextureLocation(ChefEntity entity) {

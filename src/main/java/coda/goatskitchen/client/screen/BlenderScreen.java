@@ -35,14 +35,13 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderContainer> {
     @Override
     protected void renderLabels(PoseStack matrixStack, int x, int y) {
         this.font.draw(matrixStack, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
-
         this.font.draw(matrixStack, "Blender", ((float) imageWidth / 2 - font.width("Blender") / 2), 6f, 4210752);
     }
 
     @Override
     protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        this.minecraft.textureManager.getTexture(BLENDER_GUI);
+        RenderSystem.setShaderTexture(0, BLENDER_GUI);
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
         this.blit(matrixStack, x, y, 0, 0, this.imageWidth, this.imageHeight);

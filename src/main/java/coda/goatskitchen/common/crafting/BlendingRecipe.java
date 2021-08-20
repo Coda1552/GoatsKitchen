@@ -4,12 +4,12 @@ import coda.goatskitchen.common.init.GKRecipes;
 import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
+public class BlendingRecipe implements Recipe<BlenderTileEntity> {
     private final ResourceLocation id;
     private final ItemStack recipeOutput;
     private final NonNullList<Ingredient> recipeItems;
@@ -31,7 +31,7 @@ public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
     }
 
     @Override
-    public boolean matches(BlenderTileEntity inv, World worldIn) {
+    public boolean matches(BlenderTileEntity inv, Level worldIn) {
         if (!bottle.test(inv.getItem(9))) {
             return false;
         }
@@ -70,28 +70,28 @@ public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return GKRecipes.BLENDING_TYPE;
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return GKRecipes.BLENDING_SERIALIZER.get();
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlendingRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BlendingRecipe> {
         @Override
         public BlendingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             final NonNullList<Ingredient> items = NonNullList.create();
             for (JsonElement element : json.getAsJsonArray("ingredients")) {
                 items.add(Ingredient.fromJson(element));
             }
-            return new BlendingRecipe(recipeId, ShapedRecipe.itemFromJson(json.getAsJsonObject("result")), items, Ingredient.fromJson(json.get("bottle")));
+            return new BlendingRecipe(recipeId, ShapedRecipe.itemStackFromJson(json.getAsJsonObject("result")), items, Ingredient.fromJson(json.get("bottle")));
         }
 
         @Nullable
         @Override
-        public BlendingRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+        public BlendingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             final NonNullList<Ingredient> items = NonNullList.withSize(buffer.readVarInt(), Ingredient.EMPTY);
             for (int i = 0; i < items.size(); i++) {
                 items.set(i, Ingredient.fromNetwork(buffer));
@@ -100,7 +100,7 @@ public class BlendingRecipe implements IRecipe<BlenderTileEntity> {
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, BlendingRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, BlendingRecipe recipe) {
             buffer.writeVarInt(recipe.recipeItems.size());
             for (Ingredient recipeItem : recipe.recipeItems) {
                 recipeItem.toNetwork(buffer);

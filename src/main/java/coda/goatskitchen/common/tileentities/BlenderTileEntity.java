@@ -18,14 +18,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BlenderTileEntity extends RandomizableContainerBlockEntity implements BlockEntityTicker<?> {
+public class BlenderTileEntity extends RandomizableContainerBlockEntity {
     public static int slots = 11;
     protected NonNullList<ItemStack> items = NonNullList.withSize(slots, ItemStack.EMPTY);
     public int blendingTicks;
     private BlendingRecipe currentRecipe;
 
-    public BlenderTileEntity(BlockEntityType<?> p_i48289_1_) {
-        super(p_i48289_1_);
+    public BlenderTileEntity(BlockPos pos, BlockState state) {
+        super(GKTileEntities.BLENDER_TILE_ENTITY.get(), pos, state);
     }
 
     @Override
@@ -55,10 +55,6 @@ public class BlenderTileEntity extends RandomizableContainerBlockEntity implemen
         if (!this.tryLoadLootTable(nbt)) {
             ContainerHelper.loadAllItems(nbt, this.items);
         }
-    }
-
-    public BlenderTileEntity() {
-        this(GKTileEntities.BLENDER_TILE_ENTITY.get());
     }
 
     @Override
@@ -110,19 +106,18 @@ public class BlenderTileEntity extends RandomizableContainerBlockEntity implemen
         }
     }
 
-    @Override
-    public void tick(Level p_155253_, BlockPos p_155254_, BlockState p_155255_, BlockEntity p_155256_) {
-        if (currentRecipe != null) {
-            if (++blendingTicks >= 100) {
+    public static void tick(Level level, BlockPos position, BlockState state, BlenderTileEntity blender) {
+        if (blender.currentRecipe != null) {
+            if (++blender.blendingTicks >= 100) {
                 //Clear the inventory and remove the bottle
                 for (int i = 0; i < 9; i++) {
-                    removeItem(i);
+                    blender.removeItem(i);
                 }
-                getItem(9).shrink(1);
+                blender.getItem(9).shrink(1);
                 //Set the output
-                setItem(10, currentRecipe.assemble(this));
-                currentRecipe = null;
-                blendingTicks = 0;
+                blender.setItem(10, blender.currentRecipe.assemble(blender));
+                blender.currentRecipe = null;
+                blender.blendingTicks = 0;
             }
         }
     }
