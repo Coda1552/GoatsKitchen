@@ -30,7 +30,7 @@
     }
   ],
   "bottle": {
-    "item": "minecraft:air"
+    "item": "minecraft:glass_bottle"
   },
   "result": {
     "item": "goatskitchen:sweet_berry_jello"

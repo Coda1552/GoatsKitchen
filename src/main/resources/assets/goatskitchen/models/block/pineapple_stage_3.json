@@ -1,4 +1,5 @@
 {
+	"ambientocclusion": false,
 	"textures": {
 		"0": "goatskitchen:block/pineapple_stage_3",
 		"1": "goatskitchen:block/pineapple_stage_3_fruit",
