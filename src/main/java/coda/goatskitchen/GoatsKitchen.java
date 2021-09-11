@@ -51,7 +51,7 @@ public class GoatsKitchen {
         ResourceLocation name = event.getName();
 
         if (event.getName().toString().equals("minecraft:shattered_savanna")) {
-            event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(() -> GKFeatures.PATCH_PINEAPPLE);
+            //event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(() -> GKFeatures.PATCH_PINEAPPLE);
         }
     }
 }

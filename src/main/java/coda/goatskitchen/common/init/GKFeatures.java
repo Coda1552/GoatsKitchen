@@ -28,8 +28,9 @@ public class GKFeatures {
     public static final DeferredRegister<Feature<?>> REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, GoatsKitchen.MOD_ID);
 
     public static final RegistryObject<LawyersWigMushroomFeature> LAWYERS_WIG_MUSHROOM = REGISTER.register("lawyers_wig_mushroom", LawyersWigMushroomFeature::new);
+
     // todo fix pineapple registry
-    public static final ConfiguredFeature<?, ?> PATCH_PINEAPPLE = register("patch_pineapple", Feature.RANDOM_PATCH.configured((new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(GKBlocks.PINEAPPLE.get().defaultBlockState().setValue(PineapplePlantBlock.AGE, new Random().nextInt(5))), SimpleBlockPlacer.INSTANCE)).tries(64).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK.defaultBlockState().getBlock())).canReplace().noProjection().build()).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE));
+    //public static final ConfiguredFeature<?, ?> PATCH_PINEAPPLE = register("patch_pineapple", Feature.RANDOM_PATCH.configured((new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(GKBlocks.PINEAPPLE.get().defaultBlockState().setValue(PineapplePlantBlock.AGE, new Random().nextInt(5))), SimpleBlockPlacer.INSTANCE)).tries(64).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK.defaultBlockState().getBlock())).canReplace().noProjection().build()).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE));
 
     private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, name, configuredFeature);

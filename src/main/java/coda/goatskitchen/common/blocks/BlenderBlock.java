@@ -1,13 +1,12 @@
 package coda.goatskitchen.common.blocks;
 
+import coda.goatskitchen.common.containers.CuttingBoardMenu;
 import coda.goatskitchen.common.init.GKTileEntities;
 import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
