@@ -1,6 +1,7 @@
 #version 150
 
 #define CUT_WIDTH 0.008
+#define HALF_PI 1.57079632679
 
 uniform sampler2D Sampler0;
 uniform vec4 ColorModulator;
@@ -12,14 +13,10 @@ in vec2 position;
 
 out vec4 fragColor;
 
-float line(vec2 p, vec2 a,vec2 b) { // --- distance to segment with caps
-    p -= a, b -= a;
-    float h = clamp(dot(p, b) / dot(b, b), 0., 1.);// proj coord on line
-    return length(p - b * h);                      // dist to segment
-    // We might directly return smoothstep( 3./R.y, 0., dist),
-    //     but its more efficient to factor all lines.
-    // We can even return dot(,) and take sqrt at the end of polyline:
-    // p -= b*h; return dot(p,p);
+float line(vec2 point, vec2 start, vec2 end) {
+    point -= start, end -= start;
+    float h = clamp(dot(point, end) / dot(end, end), 0, 1);
+    return length(point - end * h);
 }
 
 void main() {
@@ -30,8 +27,7 @@ void main() {
 
     // Helpful calculated data
     vec2 direction = vec2(cos(angle), sin(angle));
-    vec2 offsetDirection = vec2(cos(angle + 3.14 / 2), sin(angle + 3.14 / 2));
-    vec2 lineOffset = vec2(0, abs(angle - 3.14 / 2) * CUT_WIDTH * 8);
+    vec2 lineOffset = vec2(0, abs(angle - HALF_PI) * CUT_WIDTH * 8);
     float distance = length(point - position);
 
     // Create 2 points based on the center point and angle
@@ -40,7 +36,7 @@ void main() {
 
     // Which direction to offset in
     float sign;
-    float d = dot(normalize(point - position), offsetDirection);
+    float d = dot(normalize(point - position), vec2(cos(angle + HALF_PI), sin(angle + HALF_PI)));
 
     if (d < -0.01) {
         sign = -1;
