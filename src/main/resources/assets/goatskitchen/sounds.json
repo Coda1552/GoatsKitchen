@@ -18,5 +18,32 @@
         "stream": true
       }
     ]
+  },
+  "longhorn.ambient": {
+    "subtitle": "subtitle.goatskitchen.longhorn.ambient",
+    "sounds": [
+      {
+        "name": "goatskitchen:longhorn/ambient",
+        "stream": true
+      }
+    ]
+  },
+  "longhorn.hurt": {
+    "subtitle": "subtitle.goatskitchen.longhorn.hurt",
+    "sounds": [
+      {
+        "name": "goatskitchen:longhorn/hurt",
+        "stream": true
+      }
+    ]
+  },
+  "longhorn.death": {
+    "subtitle": "subtitle.goatskitchen.longhorn.death",
+    "sounds": [
+      {
+        "name": "goatskitchen:longhorn/death",
+        "stream": true
+      }
+    ]
   }
 }

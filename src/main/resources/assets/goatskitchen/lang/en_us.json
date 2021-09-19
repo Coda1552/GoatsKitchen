@@ -22,5 +22,9 @@
   "entity.goatskitchen.chef": "Chef",
   "entity.goatskitchen.longhorn": "Longhorn",
 
-  "container.goatskitchen.blender": "Blender"
+  "container.goatskitchen.blender": "Blender",
+
+  "subtitle.goatskitchen.longhorn.ambient": "Longhorn moos",
+  "subtitle.goatskitchen.longhorn.hurt": "Longhorn hurts",
+  "subtitle.goatskitchen.longhorn.death": "Longhorn dies"
 }
