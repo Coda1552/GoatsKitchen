@@ -29,5 +29,4 @@ public class GKItems {
     public static final RegistryObject<BlockItem> BLENDER = REGISTER.register("blender", () -> new BlockItem(GKBlocks.BLENDER.get(), new Item.Properties().tab(GoatsKitchen.GROUP)));
     public static final RegistryObject<BlockItem> LAWYERS_WIG_MUSHROOM = REGISTER.register("lawyers_wig_mushroom", () -> new BlockItem(GKBlocks.LAWYERS_WIG_MUSHROOM.get(), new Item.Properties().tab(GoatsKitchen.GROUP)));
     public static final RegistryObject<BlockItem> LAWYERS_WIG_MUSHROOM_BLOCK = REGISTER.register("lawyers_wig_mushroom_block", () -> new BlockItem(GKBlocks.LAWYERS_WIG_MUSHROOM_BLOCK.get(), new Item.Properties().tab(GoatsKitchen.GROUP)));
-    public static final RegistryObject<BlockItem> CHILI_PEPPER_PLANT = REGISTER.register("chili_pepper_plant", () -> new BlockItem(GKBlocks.CHILI_PEPPER_PLANT.get(), new Item.Properties().tab(GoatsKitchen.GROUP)));
 }

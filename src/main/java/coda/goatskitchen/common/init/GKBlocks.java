@@ -21,7 +21,4 @@ public class GKBlocks {
     public static final RegistryObject<Block> LAWYERS_WIG_MUSHROOM = REGISTER.register("lawyers_wig_mushroom", () -> new LawyersWigMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.TERRACOTTA_WHITE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
     public static final RegistryObject<Block> LAWYERS_WIG_MUSHROOM_BLOCK = REGISTER.register("lawyers_wig_mushroom_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.TERRACOTTA_WHITE).strength(0.2F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistryObject<Block> POTTED_LAWYERS_WIG_MUSHROOM = REGISTER.register("potted_lawyers_wig_mushroom", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LAWYERS_WIG_MUSHROOM, BlockBehaviour.Properties.of(Material.DECORATION).noCollission().instabreak()));
-
-    public static final RegistryObject<Block> CHILI_PEPPER_PLANT_TOP = REGISTER.register("chili_pepper_plant_top", () -> new ChiliPepperTopBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.NETHER).randomTicks().noCollission().instabreak().sound(SoundType.WEEPING_VINES)));
-    public static final RegistryObject<Block> CHILI_PEPPER_PLANT = REGISTER.register("chili_pepper_plant", () -> new ChiliPepperBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.NETHER).noCollission().instabreak().sound(SoundType.WEEPING_VINES)));
 }

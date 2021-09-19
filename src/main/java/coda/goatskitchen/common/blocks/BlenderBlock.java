@@ -57,7 +57,8 @@ public class BlenderBlock extends BaseEntityBlock {
         if (!worldIn.isClientSide) {
             BlockEntity te = worldIn.getBlockEntity(pos);
             if (te instanceof BlenderTileEntity) {
-                NetworkHooks.openGui((ServerPlayer) player, (BlenderTileEntity) te, pos);
+                NetworkHooks.openGui((ServerPlayer) player, new SimpleMenuProvider((p_39954_, p_39955_, p_39956_) -> new CuttingBoardMenu(p_39954_), new TranslatableComponent("container.crafting")));
+                //NetworkHooks.openGui((ServerPlayer) player, (BlenderTileEntity) te, pos);
             }
             return InteractionResult.CONSUME;
         }
