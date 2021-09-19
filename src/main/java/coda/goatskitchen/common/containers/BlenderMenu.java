@@ -5,7 +5,6 @@ import coda.goatskitchen.common.init.GKBlocks;
 import coda.goatskitchen.common.init.GKContainers;
 import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,11 +16,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Objects;
 
-public class BlenderContainer extends AbstractContainerMenu {
+public class BlenderMenu extends AbstractContainerMenu {
     public final BlenderTileEntity te;
     private final ContainerLevelAccess worldPosCallable;
 
-    public BlenderContainer(final int windowId, final Inventory playerInventory, BlenderTileEntity te) {
+    public BlenderMenu(final int windowId, final Inventory playerInventory, BlenderTileEntity te) {
         super(GKContainers.BLENDER_CONTAINER.get(), windowId);
         this.te = te;
         this.worldPosCallable = ContainerLevelAccess.create(Objects.requireNonNull(te.getLevel()), te.getBlockPos());
@@ -55,7 +54,7 @@ public class BlenderContainer extends AbstractContainerMenu {
 
     }
 
-    public BlenderContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
+    public BlenderMenu(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId, playerInventory, getTileEntity(playerInventory, data));
     }
 

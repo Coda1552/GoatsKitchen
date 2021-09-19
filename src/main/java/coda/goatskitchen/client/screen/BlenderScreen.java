@@ -1,11 +1,10 @@
 package coda.goatskitchen.client.screen;
 
 import coda.goatskitchen.GoatsKitchen;
-import coda.goatskitchen.common.containers.BlenderContainer;
+import coda.goatskitchen.common.containers.BlenderMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,10 +12,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BlenderScreen extends AbstractContainerScreen<BlenderContainer> {
+public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
     private static final ResourceLocation BLENDER_GUI = new ResourceLocation(GoatsKitchen.MOD_ID, "textures/gui/blender.png");
 
-    public BlenderScreen(BlenderContainer screenContainer, Inventory inv, Component titleIn) {
+    public BlenderScreen(BlenderMenu screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
 
         this.leftPos = 0;

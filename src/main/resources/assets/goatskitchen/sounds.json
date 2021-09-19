@@ -1,0 +1,22 @@
+{
+  "cutting_board.cutting_board_cut": {
+    "sounds": [
+      {
+        "name": "goatskitchen:cutting_board/cutting_board_cut_1",
+        "stream": true
+      },
+      {
+        "name": "goatskitchen:cutting_board/cutting_board_cut_2",
+        "stream": true
+      },
+      {
+        "name": "goatskitchen:cutting_board/cutting_board_cut_3",
+        "stream": true
+      },
+      {
+        "name": "goatskitchen:cutting_board/cutting_board_cut_4",
+        "stream": true
+      }
+    ]
+  }
+}

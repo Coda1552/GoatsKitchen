@@ -1,7 +1,7 @@
 package coda.goatskitchen.common.tileentities;
 
 import coda.goatskitchen.GoatsKitchen;
-import coda.goatskitchen.common.containers.BlenderContainer;
+import coda.goatskitchen.common.containers.BlenderMenu;
 import coda.goatskitchen.common.crafting.BlendingRecipe;
 import coda.goatskitchen.common.init.GKRecipes;
 import coda.goatskitchen.common.init.GKTileEntities;
@@ -35,7 +35,7 @@ public class BlenderTileEntity extends RandomizableContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory player) {
-        return new BlenderContainer(id, player, this);
+        return new BlenderMenu(id, player, this);
     }
 
     @Override

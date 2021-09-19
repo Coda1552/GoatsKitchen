@@ -5,6 +5,6 @@ license="All rights reserved"
 modId="goatskitchen" #mandatory
 version="${file.jarVersion}" #mandatory
 displayName="Goat's Kitchen" #mandatory
-credits="MightyGoat42" #optional
+credits="MightyGoat42, TheCraftyGhost" #optional
 authors="Coda, VakyPanda" #optional
 description='''Plaecholder description.'''

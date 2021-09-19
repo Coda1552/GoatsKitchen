@@ -39,7 +39,7 @@ public class GoatsKitchen {
         GKContainers.REGISTER.register(bus);
         GKFeatures.REGISTER.register(bus);
         GKRecipes.REGISTER.register(bus);
-
+        GKSounds.REGISTER.register(bus);
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
