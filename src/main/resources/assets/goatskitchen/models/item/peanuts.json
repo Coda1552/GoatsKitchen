@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "goatskitchen:item/sweet_berry_jello"
+    "layer0": "goatskitchen:item/peanuts"
   }
 }

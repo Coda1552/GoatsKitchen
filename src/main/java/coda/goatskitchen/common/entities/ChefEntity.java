@@ -37,7 +37,6 @@ public class ChefEntity extends AbstractVillager implements Merchant {
             new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 3), new ItemStack(GKItems.WINE_BOTTLE.get()), 2, 3, 30),
             new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 6), new ItemStack(GKItems.PINEAPPLE.get(), 1), 2, 3, 30),
             new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 7), new ItemStack(Items.BREAD, 2), 3, 3, 30),
-            new ItemsForItemsTrade(new ItemStack(GKItems.CHEESE.get(), 6), new ItemStack(GKItems.SWEET_BERRY_JELLO.get(), 1), 2, 3, 30),
     }));
 
     public ChefEntity(EntityType<? extends ChefEntity> type, Level worldIn) {
