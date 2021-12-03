@@ -10,7 +10,5 @@ import net.minecraftforge.registries.RegistryObject;
 public class GKBiomes {
     public static final DeferredRegister<Biome> REGISTER = DeferredRegister.create(ForgeRegistries.BIOMES, GoatsKitchen.MOD_ID);
 
-
-    // TODO - just make a biome in code
-    public static final RegistryObject<Biome> TARTAR_PITS = REGISTER.register("tartar_pits", () -> new TartarPitsBiome().getBiome());
+    public static final RegistryObject<Biome> TARTAR_PITS = REGISTER.register("tartar_pits", () -> new TartarPitsBiome().build());
 }

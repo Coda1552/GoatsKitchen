@@ -3,9 +3,18 @@ package coda.goatskitchen;
 import coda.goatskitchen.common.entities.ChefEntity;
 import coda.goatskitchen.common.entities.LonghornEntity;
 import coda.goatskitchen.registry.*;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.data.worldgen.TerrainProvider;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
+import net.minecraft.world.level.biome.OverworldBiomeBuilder;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -13,6 +22,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
+
+import java.util.ArrayList;
 
 @Mod(GoatsKitchen.MOD_ID)
 public class GoatsKitchen {
@@ -45,7 +58,11 @@ public class GoatsKitchen {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(GKFeatures::register);
+        GKConfiguredFeatures.register();
+
+        ForgeRegistry<Biome> biomeRegistry = (ForgeRegistry<Biome>) ForgeRegistries.BIOMES;
+        ResourceKey<Biome> key = biomeRegistry.getKey(biomeRegistry.getID(GKBiomes.TARTAR_PITS.get()));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(key, 3));
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
