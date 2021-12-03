@@ -1,11 +1,10 @@
 package coda.goatskitchen.common.entities;
 
-import coda.goatskitchen.common.init.GKEntities;
-import coda.goatskitchen.common.init.GKItems;
-import coda.goatskitchen.common.init.GKSounds;
+import coda.goatskitchen.registry.GKEntities;
+import coda.goatskitchen.registry.GKItems;
+import coda.goatskitchen.registry.GKSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

@@ -8,14 +8,11 @@ import coda.goatskitchen.client.renderer.LonghornRenderer;
 import coda.goatskitchen.client.screen.BlenderScreen;
 import coda.goatskitchen.client.screen.CuttingBoardScreen;
 import coda.goatskitchen.client.ter.BlenderTileEntityRenderer;
-import coda.goatskitchen.common.init.GKBlocks;
-import coda.goatskitchen.common.init.GKContainers;
-import coda.goatskitchen.common.init.GKEntities;
-import coda.goatskitchen.common.init.GKTileEntities;
-import coda.goatskitchen.common.items.GKSpawnEggItem;
+import coda.goatskitchen.registry.GKBlocks;
+import coda.goatskitchen.registry.GKContainers;
+import coda.goatskitchen.registry.GKEntities;
+import coda.goatskitchen.registry.GKTileEntities;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -24,7 +21,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -54,13 +50,6 @@ public class ClientEvents {
 
         ForgeHooksClient.registerLayerDefinition(LonghornRenderer.MODEL_LAYER, LonghornModel::createLayer);
         ForgeHooksClient.registerLayerDefinition(ChefRenderer.MODEL_LAYER, ChefModel::createLayer);
-    }
-
-    @SubscribeEvent
-    public static void itemColors(ColorHandlerEvent.Item event) {
-        ItemColors handler = event.getItemColors();
-        ItemColor eggColor = (stack, tintIndex) -> ((GKSpawnEggItem) stack.getItem()).getColor(tintIndex);
-        for (GKSpawnEggItem e : GKSpawnEggItem.UNADDED_EGGS) handler.register(eggColor, e);
     }
 
     @SubscribeEvent

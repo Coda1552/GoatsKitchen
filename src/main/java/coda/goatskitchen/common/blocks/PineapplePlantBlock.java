@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.blocks;
 
-import coda.goatskitchen.common.init.GKItems;
+import coda.goatskitchen.registry.GKItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;

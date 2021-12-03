@@ -1,4 +1,4 @@
-package coda.goatskitchen.common.init;
+package coda.goatskitchen.registry;
 
 import coda.goatskitchen.GoatsKitchen;
 import coda.goatskitchen.common.entities.ChefEntity;
@@ -6,9 +6,9 @@ import coda.goatskitchen.common.entities.LonghornEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class GKEntities {
     public static final DeferredRegister<EntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.ENTITIES, GoatsKitchen.MOD_ID);

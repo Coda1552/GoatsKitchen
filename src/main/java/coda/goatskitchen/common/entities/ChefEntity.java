@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.entities;
 
-import coda.goatskitchen.common.init.GKItems;
+import coda.goatskitchen.registry.GKItems;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;

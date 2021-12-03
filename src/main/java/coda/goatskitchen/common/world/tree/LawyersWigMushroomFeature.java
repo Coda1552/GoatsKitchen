@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.world.tree;
 
-import coda.goatskitchen.common.init.GKBlocks;
+import coda.goatskitchen.registry.GKBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -16,11 +16,6 @@ public class LawyersWigMushroomFeature extends Feature<NoneFeatureConfiguration>
     private static final BlockState MUSHROOM = GKBlocks.LAWYERS_WIG_MUSHROOM_BLOCK.get().defaultBlockState();
 
     //NOTE all random values below have 1 added to them when randomizing, the values determine the maximum possible output, not number of outputs
-
-    //trunk placement
-    public static int minimumTrunkHeight = 4;
-    public static int trunkHeightExtra = 1;
-
     public LawyersWigMushroomFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }

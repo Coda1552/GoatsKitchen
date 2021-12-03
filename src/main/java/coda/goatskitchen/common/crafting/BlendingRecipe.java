@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.crafting;
 
-import coda.goatskitchen.common.init.GKRecipes;
+import coda.goatskitchen.registry.GKRecipes;
 import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

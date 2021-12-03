@@ -1,4 +1,4 @@
-package coda.goatskitchen.common.init;
+package coda.goatskitchen.registry;
 
 import coda.goatskitchen.GoatsKitchen;
 import coda.goatskitchen.common.crafting.BlendingRecipe;
@@ -6,9 +6,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class GKRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> REGISTER = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, GoatsKitchen.MOD_ID);

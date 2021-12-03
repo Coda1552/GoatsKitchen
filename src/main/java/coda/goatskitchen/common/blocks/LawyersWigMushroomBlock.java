@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.blocks;
 
-import coda.goatskitchen.common.init.GKFeatures;
+import coda.goatskitchen.registry.GKFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -85,7 +85,7 @@ public class LawyersWigMushroomBlock extends SaplingBlock {
             if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(world, rand, pos)) {
                 return;
             }
-            GKFeatures.LAWYERS_WIG_MUSHROOM.get().place(new FeaturePlaceContext<>(world, world.getChunkSource().generator, rand, pos, null));
+            //GKFeatures.LAWYERS_WIG_MUSHROOM.get().place(new FeaturePlaceContext<>(world, world.getChunkSource().generator, rand, pos, null));
         }
     }
 }

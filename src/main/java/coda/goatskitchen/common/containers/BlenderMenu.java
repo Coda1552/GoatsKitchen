@@ -1,8 +1,8 @@
 package coda.goatskitchen.common.containers;
 
 import coda.goatskitchen.common.containers.slot.BlenderBottleSlot;
-import coda.goatskitchen.common.init.GKBlocks;
-import coda.goatskitchen.common.init.GKContainers;
+import coda.goatskitchen.registry.GKBlocks;
+import coda.goatskitchen.registry.GKContainers;
 import coda.goatskitchen.common.tileentities.BlenderTileEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
