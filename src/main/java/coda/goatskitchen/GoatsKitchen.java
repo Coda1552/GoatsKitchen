@@ -43,8 +43,8 @@ public class GoatsKitchen {
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
         bus.addListener(this::registerEntityAttributes);
+        bus.addListener(this::commonSetup);
         forgeBus.addListener(this::onBiomeLoad);
-        forgeBus.addListener(this::commonSetup);
 
         GKBlocks.REGISTER.register(bus);
         GKTileEntities.REGISTER.register(bus);
@@ -57,12 +57,15 @@ public class GoatsKitchen {
         GKBiomes.REGISTER.register(bus);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-        GKConfiguredFeatures.register();
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            GKConfiguredFeatures.registerConfiguredFeatures();
+            GKConfiguredFeatures.registerPlacedFeatures();
+        });
 
         ForgeRegistry<Biome> biomeRegistry = (ForgeRegistry<Biome>) ForgeRegistries.BIOMES;
         ResourceKey<Biome> key = biomeRegistry.getKey(biomeRegistry.getID(GKBiomes.TARTAR_PITS.get()));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(key, 3));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(key, 50));
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {

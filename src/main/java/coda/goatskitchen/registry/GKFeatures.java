@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class GKFeatures {
     public static final DeferredRegister<Feature<?>> REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, GoatsKitchen.MOD_ID);
 
-    public static final Feature<FilletstoneClusterConfiguration> FILLETSTONE_CLUSTER = new FilletstoneClusterFeature();
+    //public static final Feature<FilletstoneClusterConfiguration> FILLETSTONE_CLUSTER = new FilletstoneClusterFeature();
 
     public static final RegistryObject<LawyersWigMushroomFeature> LAWYERS_WIG_MUSHROOM = REGISTER.register("lawyers_wig_mushroom", LawyersWigMushroomFeature::new);
 }

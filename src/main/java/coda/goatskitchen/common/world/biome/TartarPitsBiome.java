@@ -1,6 +1,6 @@
 package coda.goatskitchen.common.world.biome;
 
-import coda.goatskitchen.registry.GKPlacements;
+import coda.goatskitchen.registry.GKConfiguredFeatures;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -28,7 +28,7 @@ public class TartarPitsBiome extends Biome.BiomeBuilder {
     }
 
     static {
-        GENERATION_SETTINGS.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GKPlacements.PLACED_FILLETSTONE_CLUSTER);
+        GENERATION_SETTINGS.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GKConfiguredFeatures.PLACED_FILLETSTONE_CLUSTER);
 
         BiomeDefaultFeatures.addDefaultOres(GENERATION_SETTINGS);
     }
