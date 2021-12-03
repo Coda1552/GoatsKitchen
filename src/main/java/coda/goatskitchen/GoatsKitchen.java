@@ -2,12 +2,17 @@ package coda.goatskitchen;
 
 import coda.goatskitchen.common.entities.ChefEntity;
 import coda.goatskitchen.common.entities.LonghornEntity;
+import coda.goatskitchen.common.world.biome.TartarPitsBiome;
 import coda.goatskitchen.registry.*;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -18,6 +23,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
+
+import java.util.ArrayList;
 
 @Mod(GoatsKitchen.MOD_ID)
 public class GoatsKitchen {
@@ -58,6 +65,12 @@ public class GoatsKitchen {
         ForgeRegistry<Biome> biomeRegistry = (ForgeRegistry<Biome>) ForgeRegistries.BIOMES;
         ResourceKey<Biome> key = biomeRegistry.getKey(biomeRegistry.getID(GKBiomes.TARTAR_PITS.get()));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(key, 50));
+
+        register(key, new TartarPitsBiome().build());
+    }
+
+    private static Biome register(ResourceKey<Biome> p_194820_, Biome p_194821_) {
+        return BuiltinRegistries.registerMapping(BuiltinRegistries.BIOME, p_194820_, p_194821_);
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
