@@ -31,6 +31,7 @@ public class GoatsKitchen {
 
         bus.addListener(this::registerEntityAttributes);
         forgeBus.addListener(this::onBiomeLoad);
+        forgeBus.addListener(this::commonSetup);
 
         GKBlocks.REGISTER.register(bus);
         GKTileEntities.REGISTER.register(bus);
@@ -40,9 +41,10 @@ public class GoatsKitchen {
         GKFeatures.REGISTER.register(bus);
         GKRecipes.REGISTER.register(bus);
         GKSounds.REGISTER.register(bus);
+        GKBiomes.REGISTER.register(bus);
     }
 
-    private static void commonSetup(FMLCommonSetupEvent event) {
+    private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(GKFeatures::register);
     }
 

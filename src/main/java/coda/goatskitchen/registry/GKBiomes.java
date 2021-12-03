@@ -16,12 +16,7 @@ import java.util.function.Supplier;
 public class GKBiomes {
     public static final DeferredRegister<Biome> REGISTER = DeferredRegister.create(ForgeRegistries.BIOMES, GoatsKitchen.MOD_ID);
 
-    static {
-        tartarPits("tartar_pits", OverworldBiomes::theVoid);
-    }
 
-    public static RegistryObject<Biome> tartarPits(String name, Supplier<Biome> biome) {
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(GoatsKitchen.MOD_ID, name)), 1));
-        return REGISTER.register(name, biome);
-    }
+    // TODO - just make a biome in code
+    public static final RegistryObject<Biome> TARTAR_PITS = REGISTER.register("tartar_pits", () -> new TartarPitsBiome());
 }
