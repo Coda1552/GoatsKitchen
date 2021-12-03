@@ -2,7 +2,6 @@ package coda.goatskitchen.registry;
 
 import coda.goatskitchen.GoatsKitchen;
 import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
