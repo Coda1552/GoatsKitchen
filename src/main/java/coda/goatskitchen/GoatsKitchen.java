@@ -3,17 +3,11 @@ package coda.goatskitchen;
 import coda.goatskitchen.common.entities.ChefEntity;
 import coda.goatskitchen.common.entities.LonghornEntity;
 import coda.goatskitchen.registry.*;
-import com.google.common.collect.ImmutableList;
-import net.minecraft.data.worldgen.TerrainProvider;
-import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
-import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -24,8 +18,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
-
-import java.util.ArrayList;
 
 @Mod(GoatsKitchen.MOD_ID)
 public class GoatsKitchen {
